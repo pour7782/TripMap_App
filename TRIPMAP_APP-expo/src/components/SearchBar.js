@@ -5,10 +5,9 @@ const SearchBar = ({onSearch}) => {
   const [keyword, setKeyword] = useState('');
 
   const handleSearch = () => {
-    if (keyword.trim() !== '') {
-      onSearch({ name: keyword, image: require('../../assets/default.png') })
-      // default 이미지는 임시로 넣어둔겁니다.
-    }
+      if (keyword.trim() !== '') {
+        onSearch(keyword.trim())
+      }
   }
 
   return (

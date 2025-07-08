@@ -13,7 +13,7 @@ const CalendarSelector = () => {
     const handleDayPress = (day) => {
         const selected = day.dateString
 
-        // 1. 시작일이 없으면 설정
+        // 시작일이 없으면 설정
         if (!startDate || (startDate && endDate)) {
             setStartDate(selected)
             setEndDate(null)
@@ -26,7 +26,7 @@ const CalendarSelector = () => {
                 },
             })
         } else {
-        // 2. 종료일 선택 & 범위 계산
+        // 종료일 선택 & 범위 계산
         const range = getDateRange(startDate, selected)
         const marked = {}
 

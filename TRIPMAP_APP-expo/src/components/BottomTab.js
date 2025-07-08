@@ -1,14 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
-// 일단 위치만 잡아둔겁니다.
 const BottomTab = () => {
+    const navigation = useNavigation()
+
     return (
         <SafeAreaView style={styles.tab}>
             <Text style={styles.text}>메인</Text>
             <Text style={styles.text}>추천 일정</Text>
             <Text style={styles.text}>일정 생성</Text>
-            <Text style={styles.text}>마이페이지</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
+                <Text style={styles.text}>마이페이지</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
@@ -17,7 +21,7 @@ const styles = StyleSheet.create({
     tab: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingVertical: 10,
+        paddingVertical: 3,
         backgroundColor: '#fff',
     },
     text: {

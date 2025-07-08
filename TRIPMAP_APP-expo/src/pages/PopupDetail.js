@@ -1,8 +1,14 @@
 import { View, Text, StyleSheet, Image, Button, Modal, TouchableOpacity } from 'react-native';
-import RecommendationList from "./RecommendationList";
-import CalendarSelector from "./CalendarSelector";
+import RecommendationList from "../components/RecommendationList"
+import CalendarSelector from "../components/CalendarSelector"
+import { useState } from 'react';
+import KakaoMap from './KakaoMap';
+import { useNavigation } from '@react-navigation/native';
 
 const PopupDetail = ({ onClose, region }) => {
+    const [showMap, setShowMap] = useState('');
+    const navigation = useNavigation()
+
     return (
        <Modal
             transparent={true}
@@ -19,14 +25,28 @@ const PopupDetail = ({ onClose, region }) => {
                         <Text style={{ fontSize: 18 }}>✕</Text>
                     </TouchableOpacity>
 
-                    <View style={styles.top}>
-                        <Image source={region.image} style={styles.image} />
-                        <RecommendationList region={region.name} />
-                    </View>
+                    {showMap ? (
+                        <KakaoMap
+                            startDate={startDate}
+                            endDate={endDate}
+                        />
+                    ) : (
+                        <>
+                            <View style={styles.top}>
+                                <Image source={region.image} style={styles.image} />
+                                <RecommendationList region={region.name} />
+                            </View>
 
-                    <CalendarSelector />
+                            <CalendarSelector />
 
-                    <Button title="일정 생성하기" onPress={() => {}} />
+                            <Button
+                                title="일정 생성하기"
+                                onPress={() => {
+                                    navigation.navigate('KakaoMap', { region })
+                                }}
+                            />
+                        </>
+                    )}
                 </View>
             </View>
         </Modal>

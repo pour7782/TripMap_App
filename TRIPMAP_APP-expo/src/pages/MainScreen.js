@@ -1,9 +1,9 @@
-import { View, ScrollView, StyleSheet, SafeAreaView } from "react-native";
-import RegionCard from "./RegionCard"
-import ButtomTab from "./BottomTab"
-import SearchBar from "./SearchBar";
+import { View, ScrollView, StyleSheet,Alert, SafeAreaView } from "react-native";
+import RegionCard from "../components/RegionCard"
+import SearchBar from "../components/SearchBar";
 import { useState } from "react";
-import PopupDetail from "./PopupDetail";
+import PopupDetail from "../pages/PopupDetail";
+import BottomTab from "../components/BottomTab";
 
 // 임시 데이터
 const regions = [
@@ -21,12 +21,22 @@ const regions = [
     { name: '경상북도', image: require('../../assets/seoul.jpg') },
 ]
 
-const MainScreen = () => {
-    const [selectedRegion, setSelectedRegion] = useState(null);
+const MainScreen = ({navigation}) => {
+    const [selectedRegion, setSelectedRegion] = useState(null)
+
+    const handleSearch = (keyword) => {
+        const found = regions.find(region => region.name === keyword)
+        if (found) {
+            setSelectedRegion(found)
+        } else {
+            Alert.alert('검색 결과가 없습니다.')
+            setSelectedRegion(null)
+        }
+    }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <SearchBar onSearch={region => setSelectedRegion(region)} />
+        <View style={styles.container}>
+            <SearchBar onSearch={handleSearch} />
             <ScrollView>
                 <View style={styles.regionList}>
                     {regions.map((region, index) => (
@@ -34,12 +44,12 @@ const MainScreen = () => {
                     ))}
                 </View>
             </ScrollView>
-            <ButtomTab />
+            <BottomTab />
 
             {selectedRegion && (
                 <PopupDetail region={selectedRegion} onClose={() => setSelectedRegion(null)} />
             )}
-        </SafeAreaView>
+        </View>
     )
 }
 
