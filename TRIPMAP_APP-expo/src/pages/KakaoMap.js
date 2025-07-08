@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import WebView from "react-native-webview";
 
-const KakaoMap = ({ latitude = 37.5665, longitude = 126.9780, mapLevel = 3 }) => {
+const KakaoMap = ({ latitude = 37.5665, longitude = 126.9780, level = 3 }) => {
     const htmlContent = `
         <!DOCTYPE html>
         <html>
