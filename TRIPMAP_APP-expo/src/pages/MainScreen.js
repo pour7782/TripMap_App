@@ -1,9 +1,10 @@
-import { View, ScrollView, StyleSheet,Alert, SafeAreaView } from "react-native";
+import { View, ScrollView, StyleSheet,Alert, Text } from "react-native";
 import RegionCard from "../components/RegionCard"
 import SearchBar from "../components/SearchBar";
 import { useState } from "react";
 import PopupDetail from "../pages/PopupDetail";
 import BottomTab from "../components/BottomTab";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // 임시 데이터
 const regions = [
@@ -21,7 +22,7 @@ const regions = [
     { name: '경상북도', image: require('../../assets/seoul.jpg') },
 ]
 
-const MainScreen = ({navigation}) => {
+const MainScreen = () => {
     const [selectedRegion, setSelectedRegion] = useState(null)
 
     const handleSearch = (keyword) => {
@@ -35,7 +36,8 @@ const MainScreen = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            <Text style={styles.titleText}>나랏말싸미 듕귁에 달아</Text>
             <SearchBar onSearch={handleSearch} />
             <ScrollView>
                 <View style={styles.regionList}>
@@ -49,17 +51,26 @@ const MainScreen = ({navigation}) => {
             {selectedRegion && (
                 <PopupDetail region={selectedRegion} onClose={() => setSelectedRegion(null)} />
             )}
-        </View>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff' },
+    container: {
+        flex: 1, backgroundColor: '#fff'
+    },
+    titleText: {
+        marginTop: 4,
+        fontWeight: 'bold',
+        fontSize: 24,
+        textAlign: 'left',
+        marginLeft: 27,
+    },
     regionList: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-evenly',
-        padding: 10,
+        paddingHorizontal: 10,
     },
 })
 

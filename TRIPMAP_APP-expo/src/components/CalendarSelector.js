@@ -5,54 +5,60 @@ import moment from "moment";
 
 // npm install react-native-calendars --legacy-peer-deps
 // npm install moment
-const CalendarSelector = () => {
-    const [startDate, setStartDate] = useState(null)
-    const [endDate, setEndDate] = useState(null)
+const CalendarSelector = ({ startDate, endDate, setStartDate, setEndDate }) => {
     const [markedDates, setMarkedDates] = useState({})
 
     const handleDayPress = (day) => {
         const selected = day.dateString
-
         // 시작일이 없으면 설정
         if (!startDate || (startDate && endDate)) {
             setStartDate(selected)
             setEndDate(null)
             setMarkedDates({
                 [selected]: {
-                startingDay: true,
-                endingDay: true,
-                color: "#00B0FF",
-                textColor: "white",
+                    startingDay: true,
+                    endingDay: true,
+                    color: "#00B0FF",
+                    textColor: "white",
                 },
             })
         } else {
-        // 종료일 선택 & 범위 계산
-        const range = getDateRange(startDate, selected)
-        const marked = {}
+            // 종료일 선택 & 범위 계산
+            const range = getDateRange(startDate, selected)
+            const marked = {}
 
-        range.forEach((date, index) => {
-            if (index === 0) {
-                marked[date] = {
+            if (range.length === 1) {
+                marked[selected] = {
                     startingDay: true,
-                    color: "#00B0FF",
-                    textColor: "white",
-                }
-            } else if (index === range.length - 1) {
-                marked[date] = {
                     endingDay: true,
                     color: "#00B0FF",
                     textColor: "white",
                 }
             } else {
-                marked[date] = {
-                    color: '#00B0FF',
-                    textColor: 'white',
-                }
+                range.forEach((date, index) => {
+                    if (index === 0) {
+                        marked[date] = {
+                            startingDay: true,
+                            color: "#00B0FF",
+                            textColor: "white",
+                        }
+                    } else if (index === range.length - 1) {
+                        marked[date] = {
+                            endingDay: true,
+                            color: "#00B0FF",
+                            textColor: "white",
+                        }
+                    } else {
+                        marked[date] = {
+                            color: '#00B0FF',
+                            textColor: 'white',
+                        }
+                    }
+                })
             }
-        })
 
-        setEndDate(selected)
-        setMarkedDates(marked)
+            setEndDate(selected)
+            setMarkedDates(marked)
         }
     }
 
@@ -84,22 +90,22 @@ const CalendarSelector = () => {
                 markedDates={markedDates}
                 onDayPress={handleDayPress}
                 theme={{
-                backgroundColor: "#ffffff",
-                calendarBackground: "#ffffff",
-                textSectionTitleColor: "#2E8BC0",
-                selectedDayTextColor: "#ffffff",
-                todayTextColor: "#00B0FF",
-                dayTextColor: "#222222",
-                arrowColor: "#00B0FF",
-                monthTextColor: "#2E8BC0",
-                textDayFontWeight: "500",
-                textMonthFontWeight: "bold",
-                textDayHeaderFontWeight: "600",
+                    backgroundColor: "#ffffff",
+                    calendarBackground: "#ffffff",
+                    textSectionTitleColor: "#2E8BC0",
+                    selectedDayTextColor: "#ffffff",
+                    todayTextColor: "#00B0FF",
+                    dayTextColor: "#222222",
+                    arrowColor: "#00B0FF",
+                    monthTextColor: "#2E8BC0",
+                    textDayFontWeight: "500",
+                    textMonthFontWeight: "bold",
+                    textDayHeaderFontWeight: "600",
                 }}
             />
             {startDate && endDate && (
                 <Text style={styles.selected}>
-                선택된 기간: {startDate} ~ {endDate}
+                    선택된 기간: {startDate} ~ {endDate}
                 </Text>
             )}
         </View>

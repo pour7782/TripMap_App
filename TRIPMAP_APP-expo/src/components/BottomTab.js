@@ -1,19 +1,24 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
 const BottomTab = () => {
     const navigation = useNavigation()
 
     return (
-        <SafeAreaView style={styles.tab}>
+        <View style={styles.tab}>
             <Text style={styles.text}>메인</Text>
-            <Text style={styles.text}>추천 일정</Text>
-            <Text style={styles.text}>일정 생성</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Boards')}>
+                <Text style={styles.text}>추천 일정</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('KakaoMap')}>
+                <Text style={styles.text}>일정 생성</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
                 <Text style={styles.text}>마이페이지</Text>
             </TouchableOpacity>
-        </SafeAreaView>
+        </View>
     )
 }
 
@@ -23,6 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         paddingVertical: 3,
         backgroundColor: '#fff',
+        margin: 12,
     },
     text: {
         fontSize: 14,

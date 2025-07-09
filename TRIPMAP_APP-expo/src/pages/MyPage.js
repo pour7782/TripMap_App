@@ -2,13 +2,17 @@ import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "rea
 import MyScheduleList from "../components/MyScheduleList"
 import MyReviewList from "../components/MyReviewList";
 import SharedScheduleList from "../components/SharedScheduleList"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import PopupSharedSchedule from "./PopupSharedSchedule";
 
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState('schedule')
-
+    const navigation = useNavigation()
+    const insets = useSafeAreaInsets()
+    
     const renderTab = () => {
         switch (selectedTab) {
         case 'schedule':
@@ -24,15 +28,23 @@ const MyPage = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <TouchableOpacity
+                style={[styles.closeButton, { top: insets.top + -5, left: 20 }]}
+                onPress={() => navigation.goBack()}
+                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+            >
+                <Text style={{ fontSize: 39, color: '#286699' }}>◂</Text>
+            </TouchableOpacity>
+
             {/* 프로필 영역 */}
             <View style={styles.profileSection}>
                 <View style={styles.profileWrapper}>
-                <Image
-                    style={styles.profileImage}
-                />
-                <TouchableOpacity style={styles.editIcon}>
-                    <Ionicons name="create-outline" size={18} />
-                </TouchableOpacity>
+                    <Image
+                        style={styles.profileImage}
+                    />
+                    <TouchableOpacity style={styles.editIcon} hitSlop={{ top: 3, bottom: 3, left: 3, right: 3 }}>
+                        <Ionicons name="create-outline" size={18} />
+                    </TouchableOpacity>
                 </View>
                 <Text style={styles.username}>사용자 이름</Text>
             </View>
@@ -44,6 +56,7 @@ const MyPage = () => {
                         key={tab}
                         style={styles.tabItem}
                         onPress={() => setSelectedTab(tab)}
+                        hitSlop={{ top: 7, bottom: 7, left: 7, right: 7 }}
                     >
                         <Text style={[styles.tabText, selectedTab === tab && styles.activeTab]}>
                             {tab === 'schedule' && '내 일정 리스트'}
@@ -67,6 +80,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         padding: 16,
+    },
+    closeButton: {
+        position: 'absolute',
+        zIndex: 1,
     },
     header: {
         flexDirection: 'row',
@@ -110,17 +127,17 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-        tabMenu: {
+    tabMenu: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 12,
         borderBottomWidth: 1,
-        borderColor: '#183852',
-        paddingBottom: 8,
+        borderColor: '#43749c',
+        paddingBottom: 10,
     },
     tabText: {
         fontSize: 14,
-        color: '#90caf9',
+        color: '#d3d3d3',
         padding: 10,
     },
     activeTab: {

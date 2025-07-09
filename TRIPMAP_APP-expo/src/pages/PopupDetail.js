@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Button, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, Button, Modal, TouchableOpacity, Alert } from 'react-native';
 import RecommendationList from "../components/RecommendationList"
 import CalendarSelector from "../components/CalendarSelector"
 import { useState } from 'react';
@@ -6,7 +6,9 @@ import KakaoMap from './KakaoMap';
 import { useNavigation } from '@react-navigation/native';
 
 const PopupDetail = ({ onClose, region }) => {
-    const [showMap, setShowMap] = useState('');
+    const [showMap, setShowMap] = useState('')
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
     const navigation = useNavigation()
 
     return (
@@ -27,6 +29,8 @@ const PopupDetail = ({ onClose, region }) => {
 
                     {showMap ? (
                         <KakaoMap
+                            latitude={region?.latitude}
+                            longitude={region?.longitude}
                             startDate={startDate}
                             endDate={endDate}
                         />
@@ -37,12 +41,26 @@ const PopupDetail = ({ onClose, region }) => {
                                 <RecommendationList region={region.name} />
                             </View>
 
-                            <CalendarSelector />
+                            <CalendarSelector
+                                startDate={startDate}
+                                endDate={endDate}
+                                setStartDate={setStartDate}
+                                setEndDate={setEndDate}
+                            />
 
                             <Button
                                 title="일정 생성하기"
                                 onPress={() => {
-                                    navigation.navigate('KakaoMap', { region })
+                                    if (!startDate || !endDate) {
+                                        Alert.alert('여행 기간을 선택해주세요.')
+                                        return
+                                    }
+                                    navigation.navigate('KakaoMap', {
+                                        latitude: region.latitude,
+                                        longitude: region.longitude,
+                                        startDate,
+                                        endDate,
+                                    })
                                 }}
                             />
                         </>
@@ -61,7 +79,7 @@ const styles = StyleSheet.create({
     },
     popup: {
         width: '90%',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#fff',
         padding: 20,
         borderRadius: 10,
         elevation: 5,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, TextInput, Button, TouchableOpacity, Text } from "react-native";
 
 const SearchBar = ({onSearch}) => {
   const [keyword, setKeyword] = useState('');
@@ -18,7 +18,13 @@ const SearchBar = ({onSearch}) => {
         onChangeText={setKeyword}
         style={styles.input}
       />
-      <Button title="검색" onPress={handleSearch} />
+      <TouchableOpacity
+        onPress={handleSearch}
+        hitSlop={{ top: 7, bottom: 7, left: 7, right: 7 }}
+        style={styles.searchButton}
+      >
+        <Text style={styles.searchButtonText}>검색</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -28,19 +34,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 15,
+    marginTop: 10,
     paddingHorizontal: 10,
     margin: 13,
   },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#90caf9',
+    borderColor: '#d3d3d3',
     borderRadius: 7,
     paddingHorizontal: 12,
     height: 40,
     marginRight: 17,
     backgroundColor: 'white',
   },
+  searchButton: {
+    backgroundColor: '#1e90ff',
+    padding: 10,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+  },
+  searchButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+  }
 })
 
 export default SearchBar;
