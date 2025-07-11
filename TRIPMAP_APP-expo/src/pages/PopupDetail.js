@@ -5,7 +5,7 @@ import { useState } from 'react';
 import KakaoMap from './KakaoMap';
 import { useNavigation } from '@react-navigation/native';
 
-const PopupDetail = ({ onClose, region }) => {
+const PopupDetail = ({ onClose, region, visible }) => {
     const [showMap, setShowMap] = useState('')
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
@@ -13,9 +13,10 @@ const PopupDetail = ({ onClose, region }) => {
 
     return (
        <Modal
-            transparent={true}
+            transparent 
+            visible={visible} 
+            statusBarTranslucent={true}
             animationType="slide"
-            visible={true}
         >
             <View style={styles.modalBackground}>
                 <View style={styles.popup}>

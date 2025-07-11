@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
+// 메인 화면 장소 카드
 const RegionCard = ({ region, onPress }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>

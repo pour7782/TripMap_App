@@ -1,19 +1,19 @@
-import { Modal, Text, View, StyleSheet, Button, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { Modal, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PopupSharedSchedule = ({ onClose, visible }) => {
-    const insets = useSafeAreaInsets()
+    const insets = useSafeAreaInsets();
 
     return (
         <Modal
-            transparent={true}
+            transparent 
+            visible={visible} 
+            statusBarTranslucent={true}
             animationType="slide"
-            visible={visible}
             onRequestClose={onClose}
         >
             <View style={styles.modalBackground}>
-                <View style={[styles.popup, {paddingBottom: insets.top - 100}]}>
+                <View style={[ styles.popup, { paddingBottom: insets.bottom }]}>
                     <TouchableOpacity
                         style={styles.closeButton}
                         onPress={onClose}
@@ -21,9 +21,18 @@ const PopupSharedSchedule = ({ onClose, visible }) => {
                     >
                         <Text style={{ fontSize: 18 }}>✕</Text>
                     </TouchableOpacity>
-                    <Text style={{ marginTop: 30, fontSize: 16, }}>
-                        공유 일정
-                    </Text>
+
+                    <Text style={styles.titleText}>공유 일정</Text>
+
+                    <TouchableOpacity
+                        style={styles.downloadButton}
+                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                        onPress={() => {
+                            onClose()
+                        }}
+                    >
+                        <Text style={styles.downloadButtonText}>일정 다운 받기</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </Modal>
@@ -38,20 +47,32 @@ const styles = StyleSheet.create({
     },
     popup: {
         height: '33%',
-        backgroundColor: '#d3d3d3',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 10,
-        borderWidth: 13,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        borderWidth: 1,
         borderColor: '#ccc',
         padding: 20,
-        paddingBottom: 30,
         alignItems: 'center',
+        bottom: 0,
     },
     closeButton: {
         position: 'absolute',
         top: 10,
         right: 12,
         zIndex: 1,
+    },
+    downloadButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: '#1e90ff',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+    },
+    downloadButtonText: {
+        color: '#fff',
+        fontSize: 16,
     },
 })
 

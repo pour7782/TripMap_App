@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 
+// 마이페이지 내가 쓴 리뷰
 const MyReviewList = () => {
     return (
         <View style={styles.container}>

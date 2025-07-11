@@ -1,12 +1,11 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MyScheduleList from "../components/MyScheduleList"
 import MyReviewList from "../components/MyReviewList";
-import SharedScheduleList from "../components/SharedScheduleList"
+import MySharedScheduleList from "../components/MySharedScheduleList";
 import { useEffect, useState } from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import PopupSharedSchedule from "./PopupSharedSchedule";
 
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState('schedule')
@@ -20,10 +19,23 @@ const MyPage = () => {
         case 'review':
             return <MyReviewList />
         case 'shared':
-            return <SharedScheduleList destination="딸기시루"/>
+            return <MySharedScheduleList destination="딸기시루"/>
         default:
             return null
         }
+    }
+
+    const handleTabChange = (tab) => {
+        setSelectedTab(tab);
+
+        // '내가 쓴 리뷰' 탭을 선택했을 때, 리뷰 작성 페이지로 이동
+        if (tab === 'review') {
+            navigation.navigate('ReviewWriteScreen');
+        }
+    }
+
+    const handleLoginClick = () => {
+        navigation.navigate('LoginPage');  // 'LoginPage'로 이동
     }
 
     return (
@@ -49,13 +61,18 @@ const MyPage = () => {
                 <Text style={styles.username}>사용자 이름</Text>
             </View>
 
+            <TouchableOpacity onPress={handleLoginClick}>
+                <Text style={styles.buttonText}>로그인</Text>
+            </TouchableOpacity>
+
             {/* 탭 버튼 */}
             <View style={styles.tabMenu}>
                 {['schedule', 'review', 'shared'].map((tab) => (
                     <TouchableOpacity
                         key={tab}
                         style={styles.tabItem}
-                        onPress={() => setSelectedTab(tab)}
+                        onPress={() => handleTabChange(tab)}
+                        // onPress={() => setSelectedTab(tab)} // handleTabChange
                         hitSlop={{ top: 7, bottom: 7, left: 7, right: 7 }}
                     >
                         <Text style={[styles.tabText, selectedTab === tab && styles.activeTab]}>
@@ -81,22 +98,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 16,
     },
+    buttonText: {
+        textAlign: 'right',
+        color: '#286699',
+        paddingRight: 15,
+    },
     closeButton: {
         position: 'absolute',
         zIndex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 12,
-    },
-    backButton: {
-        marginRight: 8,
-    },
-    title: {
-        fontSize: 20,
-        color: '#90caf9',
-        fontWeight: 'bold',
     },
     profileSection: {
         alignItems: 'center',
@@ -111,6 +120,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 3,
         borderColor: '#000',
+        justifyContent: 'center',
     },
     editIcon: {
         position: 'absolute',
@@ -126,6 +136,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         fontSize: 16,
         fontWeight: 'bold',
+        textAlign: 'center',
     },
     tabMenu: {
         flexDirection: 'row',
@@ -143,7 +154,7 @@ const styles = StyleSheet.create({
     activeTab: {
         fontWeight: 'bold',
         textDecorationLine: 'underline',
-        color: '#43749c',
+        color: '#1e90ff',
     },
     content: {
         flex: 1,

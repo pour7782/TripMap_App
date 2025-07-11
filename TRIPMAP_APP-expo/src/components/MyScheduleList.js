@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 
+// 마이페이지 내 일정 리스트
 const MyScheduleList = ({destination}) => {
     return (
         <View style={styles.container}>

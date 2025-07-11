@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, StyleSheet, TextInput, Button, TouchableOpacity, Text } from "react-native";
 
+// 메인 화면 상단 지역 검색 바
 const SearchBar = ({onSearch}) => {
   const [keyword, setKeyword] = useState('');
 
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e90ff',
     padding: 10,
     paddingHorizontal: 20,
-    borderRadius: 15,
+    borderRadius: 8,
   },
   searchButtonText: {
     color: '#fff',

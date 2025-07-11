@@ -5,6 +5,8 @@ import moment from "moment";
 
 // npm install react-native-calendars --legacy-peer-deps
 // npm install moment
+
+// 날짜 선택 팝업 달력 컴포넌트
 const CalendarSelector = ({ startDate, endDate, setStartDate, setEndDate }) => {
     const [markedDates, setMarkedDates] = useState({})
 

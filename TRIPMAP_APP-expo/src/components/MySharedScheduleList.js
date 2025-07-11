@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-const SharedScheduleList = ({destination}) => {
+// 아미페이지 공유한 일정
+const MySharedScheduleList = ({destination}) => {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
@@ -45,4 +46,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default SharedScheduleList;
+export default MySharedScheduleList;

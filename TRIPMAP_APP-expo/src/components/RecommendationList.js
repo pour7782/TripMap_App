@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
+// 팝업 PopupDetail 사진 옆 추천 리스트
 const RecommendationList = ({ region }) => {
     return (
         <View style={styles.container}>

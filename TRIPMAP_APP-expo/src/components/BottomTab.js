@@ -1,13 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+// 메인 화면 하단
 const BottomTab = () => {
     const navigation = useNavigation()
 
     return (
         <View style={styles.tab}>
             <Text style={styles.text}>메인</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Boards')}>
+            <TouchableOpacity onPress={() => navigation.navigate('ScheduleReviewListScreen')}>
                 <Text style={styles.text}>추천 일정</Text>
             </TouchableOpacity>
 
