@@ -20,7 +20,7 @@ const App = () => {
             <NavigationContainer>
                 {/*  screenOptions={{headerShown: false}} -> 상단 바 유무 */}
                 <Stack.Navigator screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="Main" component={MainScreen} />
+                    <Stack.Screen name="MainScreen" component={MainScreen} />
                     <Stack.Screen name="MyPage" component={MyPage} />
                     <Stack.Screen name="LoginPage" component={LoginPage} />
                     <Stack.Screen name="SignupPage" component={SignupPage} />

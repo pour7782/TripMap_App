@@ -1,10 +1,9 @@
-import { Text, TextInput, StyleSheet } from 'react-native';
+import { Text, TextInput, StyleSheet, ScrollView, View, Pressable } from 'react-native';
 
 // 리뷰 작성 칸
 const ReviewContentInput = ({ content, setContent }) => {
   return (
-    <>
-      <Text style={styles.label}>리뷰 작성</Text>
+    <ScrollView>
       <TextInput
         style={styles.textArea}
         multiline
@@ -13,24 +12,19 @@ const ReviewContentInput = ({ content, setContent }) => {
         value={content}
         onChangeText={setContent}
       />
-    </>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginTop: 10,
-  },
   textArea: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#d3d3d3',
     borderRadius: 8,
     padding: 14,
     marginTop: 10,
     textAlignVertical: 'top',
-    height: '45%'
+    height: 300,
   },
 })
 

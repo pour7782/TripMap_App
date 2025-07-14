@@ -1,9 +1,8 @@
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-// 뒤로가기 및 후기 타이틀
-const Header = ({ onBack }) => {
-    const insets = useSafeAreaInsets();
+const BackButton = ({ onBack }) => {
+    const insets = useSafeAreaInsets()
 
     return (
         <>
@@ -14,17 +13,18 @@ const Header = ({ onBack }) => {
             >
                 <Text style={styles.backArrow}>◂</Text>
             </TouchableOpacity>
-            <Text style={styles.screenTitle}>추천 일정 및 후기</Text>
         </>
     )
 }
 
 const styles = StyleSheet.create({
     closeButton: {
-        position: 'absolute', zIndex: 1
+        position: 'static',
+        zIndex: 1,
     },
     backArrow: {
-        fontSize: 39, color: '#286699'
+        fontSize: 39,
+        color: '#286699'
     },
     screenTitle: {
         fontSize: 22,
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Header;
+export default BackButton;

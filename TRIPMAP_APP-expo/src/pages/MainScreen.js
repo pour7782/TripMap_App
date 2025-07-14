@@ -1,10 +1,12 @@
 import { View, ScrollView, StyleSheet,Alert, Text } from "react-native";
-import RegionCard from "../components/RegionCard"
-import SearchBar from "../components/SearchBar";
+import RegionCard from "../components/mainScreen/RegionCard";
+import SearchBar from "../components/mainScreen/SearchBar";
 import { useState } from "react";
 import PopupDetail from "../pages/PopupDetail";
 import BottomTab from "../components/BottomTab";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+// asdfsafsafsfasd
 
 // 임시 데이터
 const regions = [

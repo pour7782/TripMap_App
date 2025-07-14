@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         paddingHorizontal: 10,
+        paddingBottom: 15,
     },
     popup: {
         height: '33%',

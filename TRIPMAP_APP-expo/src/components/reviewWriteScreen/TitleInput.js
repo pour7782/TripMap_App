@@ -20,14 +20,14 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    marginTop: 10,
+    marginTop: 5,
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
     padding: 14,
-    marginTop: 10,
+    marginBlock: 10,
   },
 });
 

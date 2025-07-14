@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     searchBox: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 15,
+        marginTop: 10,
         paddingHorizontal: 10,
     },
     searchInput: {

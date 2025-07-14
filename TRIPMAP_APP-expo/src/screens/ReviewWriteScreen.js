@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import { Text, ScrollView, Pressable, Alert, StyleSheet, } from 'react-native';
-import HeaderBackButton from '../components/HeaderBackButton';
-import TitleInput from '../components/TitleInput';
-import CategorySelector from '../components/CategorySelector';
-import ReviewContentInput from '../components/ReviewContentIput';
-import AttachModal from '../components/AttachModal';
+import React, { useState } from 'react';
+import { Text, ScrollView, Pressable, Alert, StyleSheet, View, SafeAreaView, } from 'react-native';
+import HeaderBackButton from '../components/reviewWriteScreen/HeaderBackButton';
+import TitleInput from '../components/reviewWriteScreen/TitleInput';
+import CategorySelector from '../components/reviewWriteScreen/CategorySelector';
+import ReviewContentInput from '../components/reviewWriteScreen/ReviewContentIput';
+import AttachModal from '../components/reviewWriteScreen/AttachModal';
 import { useNavigation } from '@react-navigation/native';
 
+// 후기 작성 페이지
 const ReviewWriteScreen = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [shareSchedule, setShareSchedule] = useState(true)
   const [attachVisible, setAttachVisible] = useState(false)
-
   const navigation = useNavigation()
 
   const onSubmit = () => {
     Alert.alert('알림', '작성 완료되었습니다.', [
-      { text: '확인', onPress: () => navigation.navigate('MainScreen') },
+      { text: '확인', onPress: () => navigation.navigate('MyPage') },
     ])
   }
 
@@ -68,14 +68,13 @@ const styles = StyleSheet.create({
   attachButton: {
     borderWidth: 1,
     borderColor: '#d3d3d3',
-    borderRadius: 6,
+    borderRadius: 8,
     paddingVertical: 10,
     alignItems: 'center',
     marginTop: 12,
-    flex: 1,
   },
   attachText: {
-    color: '#000',
+    color: '#555',
     fontSize: 14,
   },
   submitButton: {

@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // 리뷰 페이지 상단 바
-const HeaderBackButton = ({ onBack }) => {
+const HeaderBackButton = ({ onBack, isEditing }) => {
       const insets = useSafeAreaInsets()
 
   return (
@@ -21,16 +21,18 @@ const HeaderBackButton = ({ onBack }) => {
 
 const styles = StyleSheet.create({
     closeButton: {
-      position: 'absolute', zIndex: 1
+      position: 'absolute',
+      zIndex: 1,
     },
     backArrow: {
-      fontSize: 39, color: '#286699'
+      fontSize: 39,
+      color: '#286699',
     },
     screenTitle: {
       paddingTop: 20,
       fontSize: 22,
       fontWeight: 'bold',
-      marginBottom: 22,
+      marginBottom: 10,
       textAlign: 'center',
       color: '#333',
     },
