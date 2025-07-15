@@ -31,7 +31,7 @@ const LoginPage = () => {
 
   return (
     <View style={styles.container}>
-      <Icon style={styles.icon} name="user" size={60} color="#007AFF" solid />
+      <Icon style={styles.icon} name="user" size={60} color="#1e90ff" solid />
       <Text style={styles.title}>로그인</Text>
       <LoginForm
         loginData={loginData}
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#f4f6f8",
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 24,
     marginBottom: 30,
-    color: "#333",
+    color: "#000",
   },
   icon: {
     marginBottom: 30,

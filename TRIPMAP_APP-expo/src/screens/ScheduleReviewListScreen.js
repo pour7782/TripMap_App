@@ -1,58 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/scheduleReviewListScreen/Header';
 import ReviewSearchBar from '../components/scheduleReviewListScreen/ReviewSearchBar';
 import { useNavigation } from '@react-navigation/native';
 import ReviewItem from '../components/scheduleReviewListScreen/ReviewItem';
-
-// asdfsafsafsfasd
-
-// 임시 데이터
-const dummyData = [
-  { 
-    id: '1', 
-    user: '사용자1',
-    title: '제주 여행 추천', 
-    hashtag: '#휴식 #맛집', 
-    region: '제주',  // 지역 정보 추가
-    profileImage: require('../../assets/images.png'),
-  },
-  { 
-    id: '2', 
-    user: '사용자2', 
-    title: '서귀포 코스', 
-    hashtag: '#자연 #힐링',
-    region: '서귀포',  // 지역 정보 추가
-    profileImage: require('../../assets/images.png'),
-  },
-  { 
-    id: '3', 
-    user: '사용자3', 
-    title: '애월 둘레길 코스', 
-    hashtag: '#풍경 #자연탐방',
-    region: '애월',  // 지역 정보 추가
-    profileImage: require('../../assets/images.png'),
-  },
-];
+import { useReviews } from '../contexts/ReviewContext';
+import MyReviewList from '../components/myPage/MyReviewList';
 
 // 후기 메인 화면
 const ScheduleReviewListScreen = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [filteredData, setFilteredData] = useState(dummyData)
+  const [filteredData, setFilteredData] = useState([])
   const navigation = useNavigation()
+  const { reviews } = useReviews()
+
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      const noMyReviews = reviews.filter(item => item.user !== '나')
+      setFilteredData(noMyReviews)
+    } else {
+      const query = searchQuery.toLowerCase()
+      const searched = reviews.filter(item =>
+        (item.title?.toLowerCase() || '').includes(query) ||
+        (item.hashtag?.toLowerCase() || '').includes(query) ||
+        (item.region?.toLowerCase() || '').includes(query)
+      );
+      setFilteredData(searched)
+    }
+  }, [searchQuery, reviews])
 
   const handleSearch = () => {
-    if (searchQuery.trim() === '') {
-      setFilteredData(dummyData)
-    } else {
-      const filtered = dummyData.filter(item =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.hashtag.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.region.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      setFilteredData(filtered)
-    }
+    // 버튼 눌렀을 때 처리할 작업 있으면 여기에 작업해주세요.
   }
 
   return (
@@ -96,7 +75,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   flatList: {
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 7,
   },
   searchBarContainer: {
     marginTop: 10,

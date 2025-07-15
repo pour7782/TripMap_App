@@ -61,7 +61,7 @@ export default SignupPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f6f8',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
     marginBottom: 30,
-    color: '#333',
+    color: '#000',
   },
 })

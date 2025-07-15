@@ -17,7 +17,7 @@ const PhotoGallery = ({ photos }) => (
       <Text style={styles.body}>사진이 없습니다.</Text>
     )}
   </>
-);
+)
 
 const styles = StyleSheet.create({
   subHeading: {
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     lineHeight: 24,
   },
-});
+})
 
 export default PhotoGallery;

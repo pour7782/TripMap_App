@@ -1,16 +1,45 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { useReviews } from "../../contexts/ReviewContext";
+import { useNavigation } from "@react-navigation/native";
+import ReviewActionButtons from "./ReviewActionButtons";
 
 // 마이페이지 내가 쓴 리뷰
 const MyReviewList = () => {
+    const { reviews } = useReviews()
+    const navigation = useNavigation()
+    const myReviews = reviews.filter((r) => r.user === '나')
+
+    if (myReviews.length === 0) {
+        return (
+            <View style={styles.emptyContainer}>
+                <Text>작성한 리뷰가 없습니다.</Text>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.container}>
-            <View style={styles.card}>
-                <Image style={styles.image} />
-                <View style={styles.info}>
-                    <Text style={styles.label}>제주도 여행지 리뷰</Text>
-                    <Text style={styles.subtext}>정말 좋았어요! 추천합니다.</Text>
-                </View>
-            </View>
+            {myReviews.map((item) => (
+                <Pressable
+                    key={item.id}
+                    style={styles.card}
+                    onPress={() =>
+                        navigation.navigate("ReviewDetailScreen", {
+                            review: item, showPopup: false,
+                        })
+                    }
+                >
+                    <Image source={item.profileImage} style={styles.image} />
+                    <View style={styles.info}>
+                        <Text style={styles.label}>{item.user}</Text>
+                        <Text style={styles.title}>{item.title}</Text>
+                    </View>
+                    
+                    <View style={styles.buttons}>
+                        <ReviewActionButtons reviewId={item.id} />
+                    </View>
+                </Pressable>
+            ))}
         </View>
     )
 }
@@ -28,11 +57,12 @@ const styles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         marginBottom: 10,
+        justifyContent: 'center',
     },
     image: {
         width: 60,
         height: 60,
-        borderRadius: 30, // 동그라미
+        borderRadius: 30,
         marginRight: 15,
         backgroundColor: '#ffffff',
         borderWidth: 1,
@@ -46,8 +76,15 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#000',
     },
-    subtext: {
-        fontSize: 13,
+    title: {
+        fontSize: 14,
+        color: '#333',
+        justifyContent: 'center',
+    },
+    buttons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 10,
     },
 })
 

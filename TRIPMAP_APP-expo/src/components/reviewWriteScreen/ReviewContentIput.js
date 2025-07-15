@@ -1,4 +1,4 @@
-import { Text, TextInput, StyleSheet, ScrollView, View, Pressable } from 'react-native';
+import { TextInput, StyleSheet, ScrollView } from 'react-native';
 
 // 리뷰 작성 칸
 const ReviewContentInput = ({ content, setContent }) => {
@@ -8,7 +8,7 @@ const ReviewContentInput = ({ content, setContent }) => {
         style={styles.textArea}
         multiline
         numberOfLines={8}
-        placeholder="여행 후기를 작성해주세요"
+        placeholder="여행 후기를 작성해주세요."
         value={content}
         onChangeText={setContent}
       />

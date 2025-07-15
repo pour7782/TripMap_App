@@ -10,6 +10,8 @@ import ScheduleReviewListScreen from "./screens/ScheduleReviewListScreen";
 import ReviewDetailScreen from "./screens/ReviewDetailScreen";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import ReviewEditScreen from "./screens/ReviewEditScreen";
+import { ReviewProvider } from "./contexts/ReviewContext";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -17,19 +19,21 @@ const Stack = createNativeStackNavigator();
 const App = () => {
     return (
         <SafeAreaProvider>
-            <NavigationContainer>
-                {/*  screenOptions={{headerShown: false}} -> 상단 바 유무 */}
-                <Stack.Navigator screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="MainScreen" component={MainScreen} />
-                    <Stack.Screen name="MyPage" component={MyPage} />
-                    <Stack.Screen name="LoginPage" component={LoginPage} />
-                    <Stack.Screen name="SignupPage" component={SignupPage} />
-                    <Stack.Screen name="KakaoMap" component={KakaoMap} />
-                    <Stack.Screen name="ReviewWriteScreen" component={ReviewWriteScreen} />
-                    <Stack.Screen name="ScheduleReviewListScreen" component={ScheduleReviewListScreen} />
-                    <Stack.Screen name="ReviewDetailScreen" component={ReviewDetailScreen} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <ReviewProvider>
+                <NavigationContainer>
+                    {/*  screenOptions={{headerShown: false}} -> 상단 바 유무 */}
+                    <Stack.Navigator screenOptions={{headerShown: false}}>
+                        <Stack.Screen name="MainScreen" component={MainScreen} />
+                        <Stack.Screen name="MyPage" component={MyPage} />
+                        <Stack.Screen name="LoginPage" component={LoginPage} />
+                        <Stack.Screen name="SignupPage" component={SignupPage} />
+                        <Stack.Screen name="KakaoMap" component={KakaoMap} />
+                        <Stack.Screen name="ReviewWriteScreen" component={ReviewWriteScreen} />
+                        <Stack.Screen name="ScheduleReviewListScreen" component={ScheduleReviewListScreen} />
+                        <Stack.Screen name="ReviewDetailScreen" component={ReviewDetailScreen} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </ReviewProvider>
         </SafeAreaProvider>
     )
 }

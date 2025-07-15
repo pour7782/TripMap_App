@@ -1,4 +1,4 @@
-import { StyleSheet, Button, Image, Text, View, Pressable } from "react-native";
+import { StyleSheet, Image, Text, View, Pressable } from "react-native";
 
 // 일정 공유 카드 부분
 const ReviewItem = ({ item, onPressDetail }) => {
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         marginBottom: 10,
+        paddingHorizontal: 10,
         
     },
     image: {

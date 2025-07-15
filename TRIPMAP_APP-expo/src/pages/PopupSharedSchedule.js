@@ -1,7 +1,10 @@
 import { Modal, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AutoSizedImage from "../components/AutoSizedImage";
 
-const PopupSharedSchedule = ({ onClose, visible }) => {
+const popupHeight = 300;
+
+const PopupSharedSchedule = ({ onClose, visible, photos }) => {
     const insets = useSafeAreaInsets();
 
     return (
@@ -22,7 +25,16 @@ const PopupSharedSchedule = ({ onClose, visible }) => {
                         <Text style={{ fontSize: 18 }}>✕</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.titleText}>공유 일정</Text>
+                    <View style={styles.imageWrapper}>
+                        {photos?.map((photo, index) => (
+                            <AutoSizedImage
+                                key={index}
+                                source={photo}
+                                maxWidth={popupHeight * 1.5}
+                                maxHeight={popupHeight - 40}
+                            />
+                        ))}
+                    </View>
 
                     <TouchableOpacity
                         style={styles.downloadButton}
@@ -51,16 +63,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 20,
+        borderColor: '#d3d3d3',
+        overflow: "hidden",
         alignItems: 'center',
-        bottom: 0,
     },
     closeButton: {
         position: 'absolute',
         top: 10,
         right: 12,
         zIndex: 1,
+    },
+    imageWrapper: {
+        flex: 1,
     },
     downloadButton: {
         position: 'absolute',
