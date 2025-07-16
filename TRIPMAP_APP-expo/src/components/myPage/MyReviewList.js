@@ -35,9 +35,9 @@ const MyReviewList = () => {
                         <Text style={styles.title}>{item.title}</Text>
                     </View>
                     
-                    <View style={styles.buttons}>
+                    {/* <View style={styles.buttons}>
                         <ReviewActionButtons reviewId={item.id} />
-                    </View>
+                    </View> */}
                 </Pressable>
             ))}
         </View>

@@ -1,21 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Text, ScrollView, Pressable, Alert, StyleSheet } from 'react-native';
 import HeaderBackButton from '../components/reviewWriteScreen/HeaderBackButton';
 import TitleInput from '../components/reviewWriteScreen/TitleInput';
 import CategorySelector from '../components/reviewWriteScreen/CategorySelector';
 import ReviewContentInput from '../components/reviewWriteScreen/ReviewContentIput';
 import AttachModal from '../components/reviewWriteScreen/AttachModal';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useReviews } from '../contexts/ReviewContext';
 
 // 후기 작성 페이지
 const ReviewWriteScreen = () => {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  const [title, setTitle] = useState(review?.title || '')
+  const [content, setContent] = useState(review?.body || '')
   const [shareSchedule, setShareSchedule] = useState(true)
   const [attachVisible, setAttachVisible] = useState(false)
+  const { addReview, updateReview } = useReviews()
   const navigation = useNavigation()
-  const { addReview } = useReviews()
+  const route = useRoute()
+  const review = route.params?.review
+
+  useEffect(() => {
+    if (review) {
+      setTitle(review.title || '')
+      setContent(review.body || '')
+    }
+  }, [review])
 
   const onSubmit = () => {
     if (!title.trim() || !content.trim()) {
@@ -23,21 +32,31 @@ const ReviewWriteScreen = () => {
       return
     }
 
-    const newReview = {
-      id: Date.now().toString(),
-      user: '나',
-      title,
-      content,
-      hashtag: '#공유',
-      region: '애월',
-      profileImage: require('../../assets/images.png'),
-      body: content,
+    if (review) {
+      const updatedReview = {
+        ...review,
+        title,
+        body: content,
+      }
+      updateReview(updatedReview)
+      Alert.alert('수정 완료', '', [
+        { text: '확인', onPress: () => navigation.goBack() },
+      ])
+    } else {
+      const newReview = {
+        id: Date.now().toString(),
+        user: '나',
+        title,
+        body: content,
+        hashtag: '#공유',
+        region: '애월',
+        profileImage: require('../../assets/images.png'),
+      }
+      addReview(newReview);
+      Alert.alert('작성 완료', '', [
+        { text: '확인', onPress: () => navigation.goBack() },
+      ])
     }
-
-    addReview(newReview)
-    Alert.alert('작성 완료', '', [
-      { text: '확인', onPress: () => navigation.goBack() },
-    ])
   }
 
   return (

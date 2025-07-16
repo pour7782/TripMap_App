@@ -1,21 +1,31 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import BackButton from '../components/reviewDetailScreen/BackButton';
 import ProfileSection from '../components/reviewDetailScreen/ProfileSection';
 import ReviewSection from '../components/reviewDetailScreen/ReviewSection';
 import PhotoGallery from '../components/reviewDetailScreen/PhotoGallery';
 import PopupSharedSchedule from '../pages/PopupSharedSchedule';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import EditDeleteButtons from '../components/reviewDetailScreen/EditDeleteButtons';
+import { useReviews } from '../contexts/ReviewContext';
 
 const ReviewDetailScreen = ({ route }) => {
-  const { review, showPopup = true } = route.params || {}
-  
+  const { review: initialReview, showPopup = true } = route.params || {}
+  const { reviews } = useReviews()
   const insets = useSafeAreaInsets()
   const navigation = useNavigation()
 
+  const [review, setReview] = useState(initialReview)
   const [modalVisible, setModalVisible] = useState(false)
   const [modalPhotos, setModalPhotos] = useState([])
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const updated = reviews.find(r => r.id === initialReview.id)
+      if (updated) setReview(updated)
+    }, [reviews])
+  )
 
   // 팝업 자동 띄우기
   useEffect(() => {
@@ -58,6 +68,8 @@ const ReviewDetailScreen = ({ route }) => {
           hashtag={review.hashtag}
         />
 
+        <EditDeleteButtons review={review}/>
+
         <ReviewSection content={review.body} />
 
         <PhotoGallery photos={review.photos} />
@@ -85,7 +97,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#000',
     marginBottom: 8,
   },
   link: {

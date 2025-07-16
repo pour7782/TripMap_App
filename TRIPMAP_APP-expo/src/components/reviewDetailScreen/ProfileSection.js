@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   profileContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
     paddingTop: 10,
   },
   userInfo: {
