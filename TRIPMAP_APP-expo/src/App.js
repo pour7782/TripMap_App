@@ -12,6 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ReviewEditScreen from "./screens/ReviewEditScreen";
 import { ReviewProvider } from "./contexts/ReviewContext";
+import { ReviewSettingsProvider } from "./contexts/ReviewSettingsContext"; 
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -20,6 +21,7 @@ const App = () => {
     return (
         <SafeAreaProvider>
             <ReviewProvider>
+                <ReviewSettingsProvider>
                 <NavigationContainer>
                     {/*  screenOptions={{headerShown: false}} -> 상단 바 유무 */}
                     <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -33,6 +35,7 @@ const App = () => {
                         <Stack.Screen name="ReviewDetailScreen" component={ReviewDetailScreen} />
                     </Stack.Navigator>
                 </NavigationContainer>
+              </ReviewSettingsProvider>
             </ReviewProvider>
         </SafeAreaProvider>
     )

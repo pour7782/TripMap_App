@@ -1,7 +1,11 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { useReviewSettings } from '../../contexts/ReviewSettingsContext'; 
+
 
 // 후기 작성 페이지 카테고리, 일정공유 유무
-const CategorySelector = ({ shareSchedule, setShareSchedule }) => {
+const CategorySelector = () => {  
+  const { shareSchedule, setShareSchedule } = useReviewSettings();
+
   return (
     <>
       <View style={styles.row}>

@@ -9,9 +9,11 @@ import PopupSharedSchedule from '../pages/PopupSharedSchedule';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import EditDeleteButtons from '../components/reviewDetailScreen/EditDeleteButtons';
 import { useReviews } from '../contexts/ReviewContext';
+import { useReviewSettings } from '../contexts/ReviewSettingsContext';
 
 const ReviewDetailScreen = ({ route }) => {
   const { review: initialReview, showPopup = true } = route.params || {}
+  const { shareSchedule } = useReviewSettings(); 
   const { reviews } = useReviews()
   const insets = useSafeAreaInsets()
   const navigation = useNavigation()
@@ -29,11 +31,11 @@ const ReviewDetailScreen = ({ route }) => {
 
   // 팝업 자동 띄우기
   useEffect(() => {
-    if (showPopup) {
+    if (showPopup && shareSchedule) {
       setModalPhotos(review.photos || [])
       setModalVisible(true)
     }
-  }, [showPopup])
+  }, [showPopup, shareSchedule, review]);
 
   // 팝업 내부 이미지 열기
   const openModalWithPhotos = () => {
@@ -74,15 +76,19 @@ const ReviewDetailScreen = ({ route }) => {
 
         <PhotoGallery photos={review.photos} />
 
+      {shareSchedule && (
         <Pressable style={styles.popupButton} onPress={openModalWithPhotos}>
           <Text style={styles.popupButtonText}>공유 일정 보기</Text>
         </Pressable>
+      )}
 
+      {shareSchedule && (
         <PopupSharedSchedule
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           photos={modalPhotos}
         />
+      )}
       </ScrollView>
     </SafeAreaView>
   )

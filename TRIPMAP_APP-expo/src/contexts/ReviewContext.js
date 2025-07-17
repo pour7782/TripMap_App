@@ -10,6 +10,7 @@ const initialReviews = [
     profileImage: require('../../assets/images.png'),
     body: "애월의 숨겨진 명소들을 찾을 수 있었어요. 잘 알려지지 않은 장소들이 많아서 좋았어요.",
     photos: [require('../../assets/aewol.jpg')],
+    shareSchedule: true,
   },
   {
     id: '1',
@@ -19,6 +20,7 @@ const initialReviews = [
     profileImage: require('../../assets/images.png'),
     body: "제주도에서 가장 추천하는 맛집이에요!",
     photos: [require('../../assets/food.png')],
+    shareSchedule: true,
   },
   {
     id: '2',
@@ -28,6 +30,7 @@ const initialReviews = [
     profileImage: require('../../assets/images.png'),
     body: "자연 느낄 수 있는 코스",
     photos: [require('../../assets/seogwipo.jpg')],
+    shareSchedule: true,
   },
 ];
 
