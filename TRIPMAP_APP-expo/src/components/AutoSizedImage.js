@@ -1,33 +1,53 @@
 import { useState, useEffect } from 'react';
 import { Image } from 'react-native';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
-// PopupSharedSchedule에 띄울 이미지 컴포넌트
 const AutoSizedImage = ({ source, maxWidth, maxHeight }) => {
-    const [size, setSize] = useState({ width: maxWidth, height: maxHeight })
+  const [size, setSize] = useState({ width: maxWidth, height: maxHeight });
 
-    useEffect(() => {
-        Image.getSize(source.uri, (width, height) => {
-            const ratio = width / height
-            let newWidth = maxWidth
-            let newHeight = maxHeight
+  useEffect(() => {
+    const isRemote = typeof source === 'object' && source?.uri;
 
-            if (maxWidth / maxHeight > ratio) {
-                newWidth = maxHeight * ratio
-            } else {
-                newHeight = maxWidth / ratio
-            }
+    const updateSize = (width, height) => {
+      const ratio = width / height;
+      let newWidth = maxWidth;
+      let newHeight = maxHeight;
 
-            setSize({ width: newWidth, height: newHeight })
-        })
-    }, [source.uri, maxWidth, maxHeight])
+      if (maxWidth / maxHeight > ratio) {
+        newWidth = maxHeight * ratio;
+      } else {
+        newHeight = maxWidth / ratio;
+      }
 
-    return (
-        <Image
-            source={source}
-            style={{ width: size.width, height: size.height }}
-            resizeMode="cover"
-        />
-    )
-}
+      setSize({ width: newWidth, height: newHeight });
+    };
+
+    if (isRemote) {
+      Image.getSize(
+        source.uri,
+        (width, height) => updateSize(width, height),
+        (error) => {
+          console.warn('Image.getSize error:', error);
+          setSize({ width: maxWidth, height: maxHeight });
+        }
+      );
+    } else {
+      const asset = resolveAssetSource(source);
+      if (asset?.width && asset?.height) {
+        updateSize(asset.width, asset.height);
+      } else {
+        setSize({ width: maxWidth, height: maxHeight });
+      }
+    }
+  }, [source, maxWidth, maxHeight]);
+
+  return (
+    <Image
+      source={source}
+      style={{ width: size.width, height: size.height }}
+      resizeMode="cover"
+    />
+  );
+};
 
 export default AutoSizedImage;
