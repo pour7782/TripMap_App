@@ -2,14 +2,14 @@ import { View, Text, StyleSheet, Image, Button, Modal, TouchableOpacity, Alert }
 import RecommendationList from "../components/RecommendationList"
 import CalendarSelector from "../components/CalendarSelector"
 import { useState } from 'react';
-import KakaoMap from './KakaoMap';
-import { useNavigation } from '@react-navigation/native';
+import TimePickerStep from '../components/popup/TimePickerStep';
 
 const PopupDetail = ({ onClose, region, visible }) => {
-    const [showMap, setShowMap] = useState('')
-    const [startDate, setStartDate] = useState(null)
-    const [endDate, setEndDate] = useState(null)
-    const navigation = useNavigation()
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [step, setStep] = useState(1)
+  const [departureTime, setDepartureTime] = useState(null)
+  const [showTimePicker, setShowTimePicker] = useState(false)
 
     return (
        <Modal
@@ -28,14 +28,7 @@ const PopupDetail = ({ onClose, region, visible }) => {
                         <Text style={{ fontSize: 18 }}>✕</Text>
                     </TouchableOpacity>
 
-                    {showMap ? (
-                        <KakaoMap
-                            latitude={region?.latitude}
-                            longitude={region?.longitude}
-                            startDate={startDate}
-                            endDate={endDate}
-                        />
-                    ) : (
+                    {step === 1 && (
                         <>
                             <View style={styles.top}>
                                 <Image source={region.image} style={styles.image} />
@@ -56,15 +49,30 @@ const PopupDetail = ({ onClose, region, visible }) => {
                                         Alert.alert('여행 기간을 선택해주세요.')
                                         return
                                     }
-                                    navigation.navigate('KakaoMap', {
-                                        latitude: region.latitude,
-                                        longitude: region.longitude,
-                                        startDate,
-                                        endDate,
-                                    })
+                                    setStep(2)
+                                    setShowTimePicker(true)
                                 }}
                             />
                         </>
+                    )}
+
+                    {step === 2 && (
+                        <TimePickerStep
+                            departureTime={departureTime}
+                            setDepartureTime={setDepartureTime}
+                            showTimePicker={showTimePicker}
+                            setShowTimePicker={setShowTimePicker}
+                            onConfirmDeparture={() => {
+                            setShowTimePicker(false)
+                                Alert.alert(
+                                    `출발 시간: ${departureTime.toLocaleTimeString()}`
+                                )
+                            }}
+                            onBack={() => {
+                                setStep(1)
+                                setShowTimePicker(false)
+                            }}
+                        />
                     )}
                 </View>
             </View>

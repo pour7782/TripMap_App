@@ -1,9 +1,8 @@
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-// 뒤로가기 및 후기 타이틀
-const Header = ({ onBack }) => {
-    const insets = useSafeAreaInsets();
+const FlowHeader = ({ onBack }) => {
+    const insets = useSafeAreaInsets()
 
     return (
         <>
@@ -14,7 +13,6 @@ const Header = ({ onBack }) => {
             >
                 <Text style={styles.backArrow}>◂</Text>
             </TouchableOpacity>
-            <Text style={styles.screenTitle}>공유 여행지</Text>
         </>
     )
 }
@@ -30,10 +28,11 @@ const styles = StyleSheet.create({
     screenTitle: {
         fontSize: 22,
         fontWeight: 'bold',
-        marginBottom: 30,
+        marginTop: 22,
+        marginBottom: 20,
         textAlign: 'center',
         color: '#000',
     },
 })
 
-export default Header;
+export default FlowHeader;

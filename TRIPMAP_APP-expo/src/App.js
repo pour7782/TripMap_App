@@ -10,9 +10,11 @@ import ScheduleReviewListScreen from "./screens/ScheduleReviewListScreen";
 import ReviewDetailScreen from "./screens/ReviewDetailScreen";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import ReviewEditScreen from "./screens/ReviewEditScreen";
 import { ReviewProvider } from "./contexts/ReviewContext";
-import { ReviewSettingsProvider } from "./contexts/ReviewSettingsContext"; 
+import { ReviewSettingsProvider } from "./contexts/ReviewSettingsContext";
+import DepartureTransportationScreen from "./screens/DepartureTransportationScreen";
+import ReturnTransportationScreen from "./screens/ReturnTransportationScreen";
+import ScheduleFlow from "./screens/ScheduleFlow";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -33,6 +35,9 @@ const App = () => {
                         <Stack.Screen name="ReviewWriteScreen" component={ReviewWriteScreen} />
                         <Stack.Screen name="ScheduleReviewListScreen" component={ScheduleReviewListScreen} />
                         <Stack.Screen name="ReviewDetailScreen" component={ReviewDetailScreen} />
+                        <Stack.Screen name="DepartureTransportationScreen" component={DepartureTransportationScreen} />
+                        <Stack.Screen name="ReturnTransportationScreen" component={ReturnTransportationScreen} />
+                        <Stack.Screen name="ScheduleFlow" component={ScheduleFlow} />
                     </Stack.Navigator>
                 </NavigationContainer>
               </ReviewSettingsProvider>

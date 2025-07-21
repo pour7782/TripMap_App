@@ -9,10 +9,10 @@ const BottomTab = () => {
         <View style={styles.tab}>
             <Text style={styles.text}>메인</Text>
             <TouchableOpacity onPress={() => navigation.navigate('ScheduleReviewListScreen')}>
-                <Text style={styles.text}>추천 일정</Text>
+                <Text style={styles.text}>공유 여행지</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('KakaoMap')}>
+            <TouchableOpacity onPress={() => navigation.navigate('ScheduleFlow')}>
                 <Text style={styles.text}>일정 생성</Text>
             </TouchableOpacity>
 

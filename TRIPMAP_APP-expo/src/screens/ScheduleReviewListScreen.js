@@ -6,7 +6,6 @@ import ReviewSearchBar from '../components/scheduleReviewListScreen/ReviewSearch
 import { useNavigation } from '@react-navigation/native';
 import ReviewItem from '../components/scheduleReviewListScreen/ReviewItem';
 import { useReviews } from '../contexts/ReviewContext';
-import MyReviewList from '../components/myPage/MyReviewList';
 
 // 후기 메인 화면
 const ScheduleReviewListScreen = () => {
