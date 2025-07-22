@@ -8,7 +8,7 @@ const TimePickerStep = ({
   setDepartureTime,
   showTimePicker,
   setShowTimePicker,
-  onBack, startDate, endDate, region
+  onBack, startDate, endDate
 }) => {
   const navigation = useNavigation()
 
@@ -54,7 +54,10 @@ const TimePickerStep = ({
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('DepartureTransportationScreen', { departureTime, startDate, endDate })}
+          onPress={() => navigation.navigate('DepartureTransportationScreen', {
+            departureTime: departureTime.toISOString(),
+            startDate, endDate
+          })}
           hitSlop={{ top: 7, bottom: 7, left: 7, right: 7 }}
           style={styles.nextButton}
         >

@@ -4,8 +4,10 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import LoginButtons from "../components/loginPage/LoginButtons";
 import LoginForm from "../components/loginPage/LoginForm";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
+  const { login } = useAuth()
   const navigation = useNavigation();
   const [loginData, setLoginData] = useState({ username: '', password: '' })
   const [errorMsg, setErrorMsg] = useState('')
@@ -16,9 +18,9 @@ const LoginPage = () => {
       return
     }
 
-    const loginSuccess = true;
+  const success = login(loginData.username, loginData.password);
 
-    if (!loginSuccess) {
+    if (!success) {
       setErrorMsg("로그인 실패")
       return
     }

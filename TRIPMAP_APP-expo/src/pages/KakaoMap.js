@@ -8,7 +8,12 @@ const KakaoMap = () => {
     const insets = useSafeAreaInsets()
     const route = useRoute()
     const navigation = useNavigation()
-    const { latitude = 37.5665, longitude = 126.9780, startDate, endDate } = route.params || {};
+    
+    const params = route.params || {};
+    const latitude = params.latitude ?? 37.5665;
+    const longitude = params.longitude ?? 126.9780;
+    const startDate = params.startDate ?? null;
+    const endDate = params.endDate ?? null;
 
     const shouldShowMarker = !(latitude === 37.5665 && longitude === 126.9780);
 

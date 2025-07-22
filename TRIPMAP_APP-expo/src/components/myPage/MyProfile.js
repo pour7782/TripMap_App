@@ -1,7 +1,29 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
-const MyProfile = ({ onLoginClick }) => {
+const MyProfile = () => {
+    const { logout } = useAuth()
+    const navigation = useNavigation()
+
+    const handleLogout = () => {
+        Alert.alert(
+            '로그아웃',
+            '정말 로그아웃 하시겠습니까?',
+            [
+                { text: '취소', style: 'cancel' },
+                {
+                    text: '확인',
+                    onPress: () => {
+                        logout();
+                        navigation.replace('MainScreen')
+                    }
+                }
+            ]
+        )
+    }
+    
     return (
         <View style={styles.profileSection}>
             <View style={styles.profileWrapper}>
@@ -13,8 +35,8 @@ const MyProfile = ({ onLoginClick }) => {
             <Text style={styles.username}>사용자 이름</Text>
 
             <View style={styles.loginButtonWrapper}>
-                <TouchableOpacity onPress={onLoginClick}>
-                    <Text style={styles.buttonText}>로그인</Text>
+                <TouchableOpacity onPress={handleLogout}>
+                    <Text style={styles.buttonText}>로그아웃</Text>
                 </TouchableOpacity>
             </View>
         </View>

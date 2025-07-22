@@ -1,8 +1,21 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import CalendarSelector from '../CalendarSelector';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const DateSelector = ({ startDate, endDate, setStartDate, setEndDate, onCreateSchedule, onBack }) => {
+  const { user } = useAuth()
+  const navigation = useNavigation()
+
+  const handleCreateSchedule = () => {
+    if (!user) {
+      navigation.replace("LoginPage")
+      return
+    }
+    onCreateSchedule()
+  }
+
   return (
     <View>
       <CalendarSelector
@@ -13,7 +26,7 @@ const DateSelector = ({ startDate, endDate, setStartDate, setEndDate, onCreateSc
       />
       <View style={styles.buttons}>
         <TouchableOpacity
-	        onPress={onCreateSchedule}
+	        onPress={handleCreateSchedule}
           hitSlop={{ top: 7, bottom: 7, left: 7, right: 7 }}
           style={styles.nextButton}
         >

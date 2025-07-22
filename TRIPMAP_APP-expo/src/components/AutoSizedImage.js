@@ -14,8 +14,10 @@ const AutoSizedImage = ({ source, maxWidth, maxHeight }) => {
       let newHeight = maxHeight;
 
       if (maxWidth / maxHeight > ratio) {
+        newHeight = maxHeight;
         newWidth = maxHeight * ratio;
       } else {
+        newWidth = maxWidth;
         newHeight = maxWidth / ratio;
       }
 
@@ -47,7 +49,7 @@ const AutoSizedImage = ({ source, maxWidth, maxHeight }) => {
       style={{ width: size.width, height: size.height }}
       resizeMode="cover"
     />
-  );
-};
+  )
+}
 
 export default AutoSizedImage;

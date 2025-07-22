@@ -15,7 +15,8 @@ const ReturnTransportationScreen = () => {
     const route = useRoute()
     const insets = useSafeAreaInsets()
 
-    const { endDate, departureTime, selectedDepartureTransportation } = route.params || {}
+    const { startDate, endDate, departureTime: departureTimeStr, selectedDepartureTransportation } = route.params || {}
+    const departureTime = departureTimeStr ? new Date(departureTimeStr) : null
     const [selectedOption, setSelectedOption] = useState(null)
 
     const formatDate = (dateStr) => {
@@ -68,13 +69,16 @@ const ReturnTransportationScreen = () => {
                         return
                     }
 
-                    Alert.alert(
-                        '여행 정보',
-                        `가는 날 교통편: ${selectedDepartureTransportation.type} (${selectedDepartureTransportation.departure})\n` +
-                        `오는 날 교통편: ${selectedOption.type} (${selectedOption.departure})`
-                    )
+                    // Alert.alert(
+                    //     '여행 정보',
+                    //     `가는 날 교통편: ${selectedDepartureTransportation.type} (${selectedDepartureTransportation.departure})\n` +
+                    //     `오는 날 교통편: ${selectedOption.type} (${selectedOption.departure})`
+                    // )
 
-                    // navigation.navigate("KakaoMap")
+                    navigation.navigate("KakaoMap", {
+                        startDate,
+                        endDate,
+                    })
                 }}
             />
         </View>

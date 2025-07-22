@@ -1,15 +1,20 @@
 import { View, Text, StyleSheet, Image, Button, Modal, TouchableOpacity, Alert } from 'react-native';
 import RecommendationList from "../components/RecommendationList"
 import CalendarSelector from "../components/CalendarSelector"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TimePickerStep from '../components/popup/TimePickerStep';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const PopupDetail = ({ onClose, region, visible }) => {
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
-  const [step, setStep] = useState(1)
-  const [departureTime, setDepartureTime] = useState(null)
-  const [showTimePicker, setShowTimePicker] = useState(false)
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+    const [step, setStep] = useState(1)
+    const [departureTime, setDepartureTime] = useState(null)
+    const [showTimePicker, setShowTimePicker] = useState(false)
+
+    const { user } = useAuth()
+    const navigation = useNavigation()
 
     return (
        <Modal
@@ -45,6 +50,10 @@ const PopupDetail = ({ onClose, region, visible }) => {
                             <Button
                                 title="일정 생성하기"
                                 onPress={() => {
+                                    if (!user) {
+                                        navigation.replace("LoginPage")
+                                        return
+                                    }
                                     if (!startDate || !endDate) {
                                         Alert.alert('여행 기간을 선택해주세요.')
                                         return

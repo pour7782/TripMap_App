@@ -15,7 +15,9 @@ const DepartureTransportationScreen = () => {
     const navigation = useNavigation()
     const route = useRoute()
     const insets = useSafeAreaInsets()
-    const { startDate, endDate, departureTime } = route.params || {};
+
+    const { startDate, endDate, departureTime: departureTimeStr } = route.params || {}
+    const departureTime = departureTimeStr ? new Date(departureTimeStr) : null
 
     const [selectedOption, setSelectedOption] = useState(null)
 
@@ -70,7 +72,7 @@ const DepartureTransportationScreen = () => {
                     }
                     navigation.navigate('ReturnTransportationScreen', {
                         startDate, endDate,
-                        departureTime,
+                        departureTime: departureTime.toISOString(),
                         selectedDepartureTransportation: selectedOption,
                     })
                 }}

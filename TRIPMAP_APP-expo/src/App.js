@@ -15,6 +15,7 @@ import { ReviewSettingsProvider } from "./contexts/ReviewSettingsContext";
 import DepartureTransportationScreen from "./screens/DepartureTransportationScreen";
 import ReturnTransportationScreen from "./screens/ReturnTransportationScreen";
 import ScheduleFlow from "./screens/ScheduleFlow";
+import { AuthProvider } from "./contexts/AuthContext";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -22,26 +23,28 @@ const Stack = createNativeStackNavigator();
 const App = () => {
     return (
         <SafeAreaProvider>
-            <ReviewProvider>
-                <ReviewSettingsProvider>
-                <NavigationContainer>
-                    {/*  screenOptions={{headerShown: false}} -> 상단 바 유무 */}
-                    <Stack.Navigator screenOptions={{headerShown: false}}>
-                        <Stack.Screen name="MainScreen" component={MainScreen} />
-                        <Stack.Screen name="MyPage" component={MyPage} />
-                        <Stack.Screen name="LoginPage" component={LoginPage} />
-                        <Stack.Screen name="SignupPage" component={SignupPage} />
-                        <Stack.Screen name="KakaoMap" component={KakaoMap} />
-                        <Stack.Screen name="ReviewWriteScreen" component={ReviewWriteScreen} />
-                        <Stack.Screen name="ScheduleReviewListScreen" component={ScheduleReviewListScreen} />
-                        <Stack.Screen name="ReviewDetailScreen" component={ReviewDetailScreen} />
-                        <Stack.Screen name="DepartureTransportationScreen" component={DepartureTransportationScreen} />
-                        <Stack.Screen name="ReturnTransportationScreen" component={ReturnTransportationScreen} />
-                        <Stack.Screen name="ScheduleFlow" component={ScheduleFlow} />
-                    </Stack.Navigator>
-                </NavigationContainer>
-              </ReviewSettingsProvider>
-            </ReviewProvider>
+            <AuthProvider>
+                <ReviewProvider>
+                    <ReviewSettingsProvider>
+                        <NavigationContainer>
+                            {/*  screenOptions={{headerShown: false}} -> 상단 바 유무 */}
+                            <Stack.Navigator screenOptions={{headerShown: false}}>
+                                <Stack.Screen name="MainScreen" component={MainScreen} />
+                                <Stack.Screen name="MyPage" component={MyPage} />
+                                <Stack.Screen name="LoginPage" component={LoginPage} />
+                                <Stack.Screen name="SignupPage" component={SignupPage} />
+                                <Stack.Screen name="KakaoMap" component={KakaoMap} />
+                                <Stack.Screen name="ReviewWriteScreen" component={ReviewWriteScreen} />
+                                <Stack.Screen name="ScheduleReviewListScreen" component={ScheduleReviewListScreen} />
+                                <Stack.Screen name="ReviewDetailScreen" component={ReviewDetailScreen} />
+                                <Stack.Screen name="DepartureTransportationScreen" component={DepartureTransportationScreen} />
+                                <Stack.Screen name="ReturnTransportationScreen" component={ReturnTransportationScreen} />
+                                <Stack.Screen name="ScheduleFlow" component={ScheduleFlow} />
+                            </Stack.Navigator>
+                        </NavigationContainer>
+                    </ReviewSettingsProvider>
+                </ReviewProvider>
+            </AuthProvider>
         </SafeAreaProvider>
     )
 }
