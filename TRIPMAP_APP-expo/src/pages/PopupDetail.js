@@ -72,6 +72,8 @@ const PopupDetail = ({ onClose, region, visible }) => {
                                 setStep(1)
                                 setShowTimePicker(false)
                             }}
+                            startDate={startDate}
+                            endDate={endDate}
                         />
                     )}
                 </View>

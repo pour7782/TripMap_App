@@ -5,8 +5,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import LoginButtons from "../components/loginPage/LoginButtons";
 import LoginForm from "../components/loginPage/LoginForm";
 
-// asdfsafsafsfasd
-
 const LoginPage = () => {
   const navigation = useNavigation();
   const [loginData, setLoginData] = useState({ username: '', password: '' })

@@ -6,8 +6,6 @@ import MyProfile from "../components/myPage/MyProfile";
 import MyTabSelector from "../components/myPage/MyTabSelector";
 import MyTabContent from "../components/myPage/MyTabContent";
 
-// asdfsafsafsfasd
-
 const MyPage = () => {
     const [selectedTab, setSelectedTab] = useState('schedule')
     const navigation = useNavigation()

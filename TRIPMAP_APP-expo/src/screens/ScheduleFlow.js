@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Button, Alert, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Alert, StyleSheet } from 'react-native';
 import DateSelector from '../components/popup/DateSelector';
 import TimePickerStep from '../components/popup/TimePickerStep';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,7 @@ const ScheduleFlow = () => {
   const [departureTime, setDepartureTime] = useState(null)
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+  const [showTimePicker, setShowTimePicker] = useState(false)
   const navigation = useNavigation()
 
   const goNext = () => setStep((prev) => prev + 1)
@@ -38,10 +39,11 @@ const ScheduleFlow = () => {
 
       {step === 2 && (
         <>
-          <Text style={styles.title}>출발 시간을 선택해주세요</Text>
           <TimePickerStep
             departureTime={departureTime}
             setDepartureTime={setDepartureTime}
+            showTimePicker={showTimePicker}
+            setShowTimePicker={setShowTimePicker}
             onConfirmDeparture={() => {
               if (!departureTime) {
                 Alert.alert('출발 시간을 선택해주세요.')
@@ -50,6 +52,8 @@ const ScheduleFlow = () => {
               goNext()
             }}
             onBack={goBack}
+            startDate={startDate}
+            endDate={endDate}
           />
         </>
       )}

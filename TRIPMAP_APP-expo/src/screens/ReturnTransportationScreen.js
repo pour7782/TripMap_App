@@ -15,8 +15,19 @@ const ReturnTransportationScreen = () => {
     const route = useRoute()
     const insets = useSafeAreaInsets()
 
-    const { endDate, departureTime, selectedDepartureTransportation } = route.params || {};
-    const [selectedOption, setSelectedOption] = useState(null);
+    const { endDate, departureTime, selectedDepartureTransportation } = route.params || {}
+    const [selectedOption, setSelectedOption] = useState(null)
+
+    const formatDate = (dateStr) => {
+        if (!dateStr) return ''
+        const d = new Date(dateStr)
+        if (isNaN(d)) return ''
+        const year = d.getFullYear()
+        const month = (d.getMonth() + 1).toString().padStart(2, '0')
+        const day = d.getDate().toString().padStart(2, '0')
+        const dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'][d.getDay()]
+        return `${year}-${month}-${day} (${dayOfWeek})`
+    }
 
     const formatTime = (date) => {
         if (!date) return ''
@@ -31,7 +42,7 @@ const ReturnTransportationScreen = () => {
             <Text style={styles.title}>오는 날 교통편 선택</Text>
 
             <Text style={styles.summaryText}>
-                오는 날: <Text style={styles.highlightText}></Text>
+                오는 날: <Text style={styles.highlightText}>{formatDate(endDate)}</Text>
             </Text>
             <Text style={styles.summaryText}>
                 출발 시간: <Text style={styles.highlightText}>{formatTime(new Date(departureTime))}</Text>
@@ -50,7 +61,7 @@ const ReturnTransportationScreen = () => {
             />
 
             <Button
-                title="최종 확인"
+                title="확인"
                 onPress={() => {
                     if (!selectedOption || !selectedDepartureTransportation) {
                         Alert.alert('오는 날 교통편을 선택해주세요.')
@@ -62,6 +73,8 @@ const ReturnTransportationScreen = () => {
                         `가는 날 교통편: ${selectedDepartureTransportation.type} (${selectedDepartureTransportation.departure})\n` +
                         `오는 날 교통편: ${selectedOption.type} (${selectedOption.departure})`
                     )
+
+                    // navigation.navigate("KakaoMap")
                 }}
             />
         </View>
@@ -86,6 +99,6 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: 'normal',
     },
-});
+})
 
 export default ReturnTransportationScreen;

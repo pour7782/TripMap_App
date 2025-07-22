@@ -6,8 +6,6 @@ import PopupDetail from "../pages/PopupDetail";
 import BottomTab from "../components/BottomTab";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// asdfsafsafsfasd
-
 // 임시 데이터
 const regions = [
     { name: '서울', image: require('../../assets/seoul.jpg') },

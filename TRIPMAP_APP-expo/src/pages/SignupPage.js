@@ -5,8 +5,6 @@ import SignupButton from '../components/signupPage/SignupButton';
 import { validateEmail, validatePassword } from '../components/signupPage/Validators';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 
-// asdfsafsafsfasd
-
 const SignupPage = () => {
   const [username, setUsername] = useState('');
   const [userid, setUserId] = useState('');

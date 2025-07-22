@@ -1,15 +1,20 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 
 const TimePickerStep = ({
   departureTime,
   setDepartureTime,
   showTimePicker,
   setShowTimePicker,
-  onBack,
+  onBack, startDate, endDate, region
 }) => {
   const navigation = useNavigation()
+
+  useEffect(() => {
+    setShowTimePicker(true)
+  }, [])
 
   const onChange = (event, selectedTime) => {
     if (event.type === 'dismissed') {
@@ -31,9 +36,11 @@ const TimePickerStep = ({
         />
       )}
 
+      <Text style={styles.title}>출발시간</Text>
+
       {departureTime && (
         <Text style={styles.selectedTime}>
-          출발 시간: {departureTime.toLocaleTimeString()}
+          {departureTime.toLocaleTimeString()}
         </Text>
       )}
 
@@ -47,7 +54,7 @@ const TimePickerStep = ({
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('DepartureTransportationScreen', { departureTime })}
+          onPress={() => navigation.navigate('DepartureTransportationScreen', { departureTime, startDate, endDate })}
           hitSlop={{ top: 7, bottom: 7, left: 7, right: 7 }}
           style={styles.nextButton}
         >
@@ -66,6 +73,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     marginBottom: 20,
+    textAlign: 'center',
   },
   selectedTime: {
     fontSize: 18,

@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import FlowHeader from '../components/scheduleFlow/FlowHeader';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+// 임시 데이터
 const dummyTransportationOptions = [
     { id: '1', type: '버스', departure: '09:00', duration: '2시간', price: '₩10,000' },
     { id: '2', type: '기차', departure: '10:00', duration: '1시간 30분', price: '₩15,000' },
@@ -14,7 +15,7 @@ const DepartureTransportationScreen = () => {
     const navigation = useNavigation()
     const route = useRoute()
     const insets = useSafeAreaInsets()
-    const { startDate, departureTime } = route.params || {};
+    const { startDate, endDate, departureTime } = route.params || {};
 
     const [selectedOption, setSelectedOption] = useState(null)
 
@@ -42,7 +43,7 @@ const DepartureTransportationScreen = () => {
             <Text style={styles.title}>가는 날 교통편 선택</Text>
 
             <Text style={styles.summaryText}>
-                가는 날: <Text style={styles.highlightText}></Text>
+                가는 날: <Text style={styles.highlightText}>{formatDate(startDate)}</Text>
             </Text>
             <Text style={styles.summaryText}>
                 출발 시간: <Text style={styles.highlightText}>{formatTime(new Date(departureTime))}</Text>
@@ -68,7 +69,7 @@ const DepartureTransportationScreen = () => {
                         return
                     }
                     navigation.navigate('ReturnTransportationScreen', {
-                        startDate,
+                        startDate, endDate,
                         departureTime,
                         selectedDepartureTransportation: selectedOption,
                     })
